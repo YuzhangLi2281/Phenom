@@ -1,0 +1,18 @@
+{
+  "model.pt": {
+    "bytes": 53117126,
+    "sha256": "881114971e64475d558982d7347a3035599698340d570c9e1c40e9381f404ccb"
+  },
+  "degree.pt": {
+    "bytes": 2957,
+    "sha256": "b2dbc6bc73e8862b6bc9ab507dc4e6deace6c3f419efe21fb279cfe4bba09ea0"
+  },
+  "config.json": {
+    "bytes": 1203,
+    "sha256": "9a3e62680a08fe0d355d315777ffff07510cab3de1c3f738f8454cf8b7056e6d"
+  },
+  "selection.json": {
+    "bytes": 440,
+    "sha256": "89050db3a4c12234651180fcd0d0d30110b74912dd651edc583640a8f35c1be3"
+  }
+}

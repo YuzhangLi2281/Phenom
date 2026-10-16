@@ -1,0 +1,28 @@
+name: phenom
+channels:
+  - pytorch
+  - nvidia
+  - pyg
+  - conda-forge
+dependencies:
+  - python=3.12
+  - pytorch=2.3
+  - pytorch-cuda=11.8
+  - pyg=2.5
+  - pytorch-scatter
+  - pip
+  - pip:
+    - rdkit
+    - numpy<2
+    - scipy
+    - pandas<3
+    - biopython
+    - transformers==4.41.1
+    - sentencepiece
+    - safetensors
+    - einops
+    - huggingface-hub
+    - biotite
+    - msgpack-numpy
+    - cloudpathlib
+    - chembl_structure_pipeline

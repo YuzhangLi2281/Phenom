@@ -1,0 +1,64 @@
+{
+  "model": "Phenom",
+  "model_class": "Phenom",
+  "architecture": "Phenom",
+  "task_names": [
+    "kcat",
+    "km"
+  ],
+  "base_outputs": [
+    "log10_kcat",
+    "log10_km",
+    "log10_kcat_km",
+    "ph",
+    "esp",
+    "fitness"
+  ],
+  "params": {
+    "mol_in_channels": 61,
+    "mol_edge_channels": 30,
+    "clique_pe_walk_length": 20,
+    "prot_in_channels": 33,
+    "prot_evo_channels": 1152,
+    "hidden_channels": 200,
+    "aggregators": [
+      "mean",
+      "min",
+      "max",
+      "std"
+    ],
+    "scalers": [
+      "identity",
+      "amplification",
+      "linear"
+    ],
+    "pre_layers": 2,
+    "post_layers": 1,
+    "total_layer": 3,
+    "K": [
+      5,
+      10,
+      20
+    ],
+    "dropout": 0,
+    "dropout_attn_score": 0.2,
+    "heads": 5,
+    "sigma_epsilon": 0.01,
+    "prediction_head_layout": "task_independent",
+    "ligand_language_embedding": true,
+    "enzyme_aware_interaction": true,
+    "catalytic_interaction_version": 2
+  },
+  "target_scalers": {
+    "kcat": {
+      "task_index": 0,
+      "median": 0.6989700043360189,
+      "iqr": 1.958324734807106
+    },
+    "km": {
+      "task_index": 1,
+      "median": -0.744727495,
+      "iqr": 1.6795075245665867
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "model": "PHENOM v2",
+  "model_class": "PHENOMV2",
+  "status": "final",
+  "architecture": "esmc_contact_catalytic_residual_cross_attention_v2",
+  "selection_protocol": "fold 0-7 train, fold 8 select 4000 steps, fold 0-8 fixed-step refit; fold 9 is the fixed benchmark, previously inspected during architecture development",
+  "source_experiment": "phenome_catalytic_residual_joint_v2_refit",
+  "step": 4000,
+  "tasks": ["kcat", "km"]
+}
