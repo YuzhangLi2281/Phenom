@@ -3,3 +3,6 @@ __pycache__/
 cache/
 results/
 .env*
+
+/train/
+/vendor/esm/

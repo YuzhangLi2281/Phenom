@@ -1,4 +1,6 @@
-# Phenom
+# PHENOM
+
+**PH**ysicochemical knowledge enhanced network for **EN**zyme **O**pti**M**ization.
 
 **Sequence-based enzyme–substrate kinetic prediction with interpretable interaction fingerprints and native Gaussian uncertainty heads.**
 
@@ -31,10 +33,9 @@ models/                 Phenom architecture and interaction layers
 mol_utils/              Molecule normalization and graph construction
 utils/                  Sequence features, dataset and batch assembly
 inference/              CLI and Python prediction interfaces
-train/build_esmc_cache.py
-train/build_ligand_fingerprints.py
+inference/build_esmc_cache.py
+inference/build_ligand_fingerprints.py
                         Inference feature-cache builders
-vendor/esm/             Matching ESMC source implementation
 ckpts/model.pt          Released Phenom parameters
 ckpts/config.json       Architecture and target scalers
 ckpts/degree.pt         PNA degree histograms
@@ -43,7 +44,7 @@ ckpts/selection.json    Checkpoint selection metadata
 
 This release contains inference code and feature preprocessing. Model training scripts, training datasets and intermediate checkpoints are excluded. The included Phenom parameters contain 13,232,213 values; loading checks all 569 state-dictionary keys strictly.
 
-ESMC and MolT5 weights are separate upstream assets. Download them on the inference server under their original terms. The matching ESMC source is included because its attention-output contract is required by the graph builder.
+ESMC and MolT5 weights are separate upstream assets. Download them on the inference server under their original terms. The graph builder requires a separately installed ESMC implementation with the matching attention-output contract.
 
 ## Installation
 
@@ -52,7 +53,7 @@ Create a dedicated Python environment with PyTorch and PyTorch Geometric matchin
 ```bash
 git clone https://github.com/YuzhangLi2281/Phenom.git
 cd Phenom
-export PHENOM_ESM_SOURCE="$PWD/vendor/esm"
+export PHENOM_ESM_SOURCE=/absolute/path/to/separately/installed/esm-source
 ```
 
 The `environment.yml` file provides an initial environment specification. Check the installed PyTorch/PyG binaries against your GPU driver before building caches.
@@ -76,7 +77,7 @@ enzyme_1,ACDEFGHIKLMNPQRSTVWY
 Build the protein cache using a local ESMC-600M model directory:
 
 ```bash
-python train/build_esmc_cache.py \
+python inference/build_esmc_cache.py \
   --protein-sequence-map-csv sequences.csv \
   --protein-cache-dir cache/proteins \
   --esmc-model-dir /path/to/esmc-600m \
@@ -86,7 +87,7 @@ python train/build_esmc_cache.py \
 Build molecular graphs, structural fingerprints and MolT5 embeddings:
 
 ```bash
-python train/build_ligand_fingerprints.py \
+python inference/build_ligand_fingerprints.py \
   --csv input.csv \
   --ligand-cache-dir cache/ligands \
   --molt5-model /path/to/molt5-base-smiles2caption \
@@ -149,12 +150,13 @@ Enzora uses this release as its activity scorer and carries `mu_log10` and `sigm
 
 ## References and attribution
 
-- [PSICHIC](https://github.com/huankoh/PSICHIC), Koh et al.: sequence-based hierarchical protein–ligand interaction fingerprints. Phenom adapts graph, pooling and interaction utilities from this work. Those portions retain Apache-2.0 terms; see `LICENSES/PSICHIC-Apache-2.0.txt` and `THIRD_PARTY_NOTICES.md`.
-- [ESMC / EvolutionaryScale ESM](https://github.com/evolutionaryscale/esm): protein representations and attention-derived contacts. Vendored source retains its upstream notices and licence.
+- [PSICHIC](https://github.com/huankoh/PSICHIC), Koh et al.: sequence-based hierarchical protein–ligand interaction fingerprints. Phenom adapts graph, pooling and interaction utilities from this work. Those portions retain Apache-2.0 terms; see `PSICHIC-Apache-2.0.txt` and `THIRD_PARTY_NOTICES.md`.
 - [MolT5](https://github.com/blender-nlp/MolT5): molecular language embeddings; [model weights](https://huggingface.co/laituan245/molt5-base-smiles2caption).
 - [Principal Neighbourhood Aggregation](https://github.com/lukecavabarrett/pna), [PyTorch Geometric](https://github.com/pyg-team/pytorch_geometric) and [RDKit](https://github.com/rdkit/rdkit): graph modelling and molecular representations.
 - [ChEMBL Structure Pipeline](https://github.com/chembl/ChEMBL_Structure_Pipeline): molecular standardization.
 
 ## License
 
-Original Phenom additions and released Phenom parameters are provided under the MIT License. Adapted and vendored components retain their upstream licences. See `LICENSE`, `THIRD_PARTY_NOTICES.md` and `LICENSES/` for the applicable notices.
+Original Phenom additions and released Phenom parameters are provided under the MIT License. Adapted and vendored components retain their upstream licences. See `LICENSE`, `THIRD_PARTY_NOTICES.md` for the applicable notices.
+
+ESMC source is an external runtime dependency and is not distributed here. Set `PHENOM_ESM_SOURCE` to the matching installation providing `esm.models.esmc.EsmcModel`. Keep its environment consistent with the pretrained ESMC files used for preprocessing.
