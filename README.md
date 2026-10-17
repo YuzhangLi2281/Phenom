@@ -1,5 +1,7 @@
 # PHENOM
 
+![PHENOM enzyme–substrate prediction architecture](assets/PHENOM_Main_Architecture.svg)
+
 **PH**ysicochemical knowledge enhanced network for **EN**zyme **O**pti**M**ization.
 
 **Sequence-based enzyme–substrate kinetic prediction with interpretable interaction fingerprints and native Gaussian uncertainty heads.**
